@@ -39,20 +39,7 @@
         "server": "dns-direct"
       },
       {
-        "domain_suffix": [
-          "youtube.com",
-          "googlevideo.com",
-          "ytimg.com",
-          "youtu.be",
-          "ggpht.com",
-          "yt.be",
-          "gvt1.com",
-          "youtubei.googleapis.com",
-          "jnn-pa.googleapis.com",
-          "youtube-nocookie.com",
-          "googleusercontent.com",
-          "wide-youtube.l.google.com"
-        ],
+        "rule_set": ["geosite-youtube"],
         "server": "dns-fake"
       }
     ],
@@ -119,6 +106,13 @@
         "format": "binary",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-ru.srs",
         "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geosite-youtube",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-youtube.srs",
+        "download_detour": "DIRECT"
       }
     ],
     "default_domain_resolver": "dns-direct",
@@ -131,33 +125,11 @@
       {
         "network": "udp",
         "port": 443,
-        "domain_suffix": [
-          "youtube.com",
-          "googlevideo.com",
-          "ytimg.com",
-          "youtu.be",
-          "ggpht.com",
-          "yt.be",
-          "gvt1.com",
-          "youtubei.googleapis.com",
-          "jnn-pa.googleapis.com",
-          "youtube-nocookie.com",
-          "googleusercontent.com",
-          "wide-youtube.l.google.com"
-        ],
+        "rule_set": ["geosite-youtube"],
         "outbound": "block"
       },
       {
-        "domain_suffix": [
-          "youtube.com",
-          "googlevideo.com",
-          "ytimg.com",
-          "youtu.be",
-          "ggpht.com",
-          "yt.be",
-          "gvt1.com",
-          "youtubei.googleapis.com"
-        ],
+        "rule_set": ["geosite-youtube"],
         "outbound": "Proxy"
       },
       {
