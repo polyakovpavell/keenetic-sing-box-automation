@@ -39,7 +39,13 @@
         "server": "dns-direct"
       },
       {
-        "rule_set": ["geosite-youtube"],
+        "rule_set": [
+          "geosite-youtube",
+          "geosite-meta",
+          "geosite-telegram",
+          "geosite-twitter",
+          "geosite-openai"
+        ],
         "server": "dns-fake"
       }
     ],
@@ -113,6 +119,41 @@
         "format": "binary",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-youtube.srs",
         "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geosite-meta",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-meta.srs",
+        "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geosite-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-telegram.srs",
+        "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geoip-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-telegram.srs",
+        "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geosite-twitter",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-twitter.srs",
+        "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geosite-openai",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-openai.srs",
+        "download_detour": "DIRECT"
       }
     ],
     "default_domain_resolver": "dns-direct",
@@ -125,11 +166,18 @@
       {
         "network": "udp",
         "port": 443,
-        "rule_set": ["geosite-youtube"],
+        "rule_set": ["geosite-youtube", "geosite-meta"],
         "outbound": "block"
       },
       {
-        "rule_set": ["geosite-youtube"],
+        "rule_set": [
+          "geosite-youtube",
+          "geosite-meta",
+          "geosite-telegram",
+          "geoip-telegram",
+          "geosite-twitter",
+          "geosite-openai"
+        ],
         "outbound": "Proxy"
       },
       {
