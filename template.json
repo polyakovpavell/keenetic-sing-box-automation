@@ -1,0 +1,177 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "/opt/etc/sing-box/cache.db",
+      "store_fakeip": true
+    }
+  },
+
+
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-direct",
+        "type": "udp",
+        "server": "77.88.8.8"
+      },
+      {
+        "tag": "dns-fake",
+        "type": "fakeip",
+        "inet4_range": "198.18.0.0/15"
+      }
+    ],
+    "rules": [
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "invert": true,
+        "server": "dns-direct"
+      },
+      {
+        "rule_set": ["geosite-ru"],
+        "server": "dns-direct"
+      },
+      {
+        "domain_suffix": [
+          "youtube.com",
+          "googlevideo.com",
+          "ytimg.com",
+          "youtu.be",
+          "ggpht.com",
+          "yt.be",
+          "gvt1.com",
+          "youtubei.googleapis.com",
+          "jnn-pa.googleapis.com",
+          "youtube-nocookie.com",
+          "googleusercontent.com",
+          "wide-youtube.l.google.com"
+        ],
+        "server": "dns-fake"
+      }
+    ],
+    "final": "dns-direct",
+    "strategy": "ipv4_only",
+    "independent_cache": true
+  },
+
+
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 2080
+    },
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "address": ["172.19.0.1/30"],
+      "auto_route": true,
+      "strict_route": false,
+      "stack": "gvisor",
+      "sniff": true
+    }
+  ],
+
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "Proxy",
+      "outbounds": ["YouTube-Fast", "DIRECT"]
+    },
+    {
+      "type": "urltest",
+      "tag": "YouTube-Fast",
+      "outbounds": [],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "2m",
+      "tolerance": 20
+    },
+    {
+      "type": "direct",
+      "tag": "DIRECT"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+
+  "route": {
+    "rule_set": [
+      {
+        "tag": "geosite-ru",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ru.srs",
+        "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geoip-ru",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-ru.srs",
+        "download_detour": "DIRECT"
+      }
+    ],
+    "default_domain_resolver": "dns-direct",
+
+    "rules": [
+      {
+        "port": 53,
+        "action": "hijack-dns"
+      },
+      {
+        "network": "udp",
+        "port": 443,
+        "domain_suffix": [
+          "youtube.com",
+          "googlevideo.com",
+          "ytimg.com",
+          "youtu.be",
+          "ggpht.com",
+          "yt.be",
+          "gvt1.com",
+          "youtubei.googleapis.com",
+          "jnn-pa.googleapis.com",
+          "youtube-nocookie.com",
+          "googleusercontent.com",
+          "wide-youtube.l.google.com"
+        ],
+        "outbound": "block"
+      },
+      {
+        "domain_suffix": [
+          "youtube.com",
+          "googlevideo.com",
+          "ytimg.com",
+          "youtu.be",
+          "ggpht.com",
+          "yt.be",
+          "gvt1.com",
+          "youtubei.googleapis.com"
+        ],
+        "outbound": "Proxy"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "DIRECT"
+      },
+      {
+        "rule_set": ["geosite-ru", "geoip-ru"],
+        "outbound": "DIRECT"
+      },
+      {
+        "outbound": "DIRECT"
+      }
+    ],
+    "auto_detect_interface": true
+  }
+}
