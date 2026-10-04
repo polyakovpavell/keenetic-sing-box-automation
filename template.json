@@ -135,13 +135,6 @@
         "download_detour": "DIRECT"
       },
       {
-        "tag": "geoip-telegram",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-telegram.srs",
-        "download_detour": "DIRECT"
-      },
-      {
         "tag": "geosite-twitter",
         "type": "remote",
         "format": "binary",
@@ -174,7 +167,6 @@
           "geosite-youtube",
           "geosite-meta",
           "geosite-telegram",
-          "geoip-telegram",
           "geosite-twitter",
           "geosite-openai"
         ],
