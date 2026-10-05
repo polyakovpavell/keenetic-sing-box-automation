@@ -52,7 +52,8 @@
           "geosite-openai",
           "geosite-notion",
           "geosite-anthropic",
-          "geosite-ru-blocked"
+          "geosite-ru-blocked",
+          "geosite-google-gemini"
         ],
         "server": "dns-fake"
       },
@@ -98,7 +99,7 @@
     {
       "type": "selector",
       "tag": "Proxy",
-      "outbounds": ["YouTube-Fast", "DIRECT"]
+      "outbounds": ["YouTube-Fast", "Gemini-Fast", "DIRECT"]
     },
     {
       "type": "urltest",
@@ -106,6 +107,16 @@
       "outbounds": [],
       "url": "https://www.gstatic.com/generate_204",
       "interval": "1m",
+      "tolerance": 50,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "urltest",
+      "tag": "Gemini-Fast",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "2m",
       "tolerance": 50,
       "idle_timeout": "30m",
       "interrupt_exist_connections": true
@@ -191,6 +202,13 @@
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/runetfreedom/russia-v2ray-rules-dat@release/sing-box/rule-set-geosite/geosite-ru-blocked.srs",
         "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geosite-google-gemini",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-google-gemini.srs",
+        "download_detour": "DIRECT"
       }
     ],
     "default_domain_resolver": "dns-direct",
@@ -207,9 +225,16 @@
           "geosite-youtube", 
           "geosite-meta", 
           "geosite-notion",
-          "geosite-anthropic"
+          "geosite-anthropic",
+          "geosite-google-gemini"
         ],
         "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "geosite-google-gemini"
+        ],
+        "outbound": "Gemini-Fast"
       },
       {
         "rule_set": [

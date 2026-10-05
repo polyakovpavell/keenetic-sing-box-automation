@@ -86,13 +86,22 @@ def main():
     if not youtube_tags:
         youtube_tags = node_tags[:50] # Резерв, если нет нод с молнией
 
+    # Фильтрация узлов для Gemini: выбираем ноды со ⭐️ (чистые / Residential IP) без РФ
+    gemini_tags = [n["tag"] for n in nodes if ("⭐" in n["tag"] or "⭐️" in n["tag"]) and "🇷🇺" not in n["tag"] and "Россия" not in n["tag"]]
+    if not gemini_tags:
+        gemini_tags = [n["tag"] for n in nodes if "🇷🇺" not in n["tag"] and "Россия" not in n["tag"]][:50]
+    if not gemini_tags:
+        gemini_tags = node_tags[:50] # Резервный пул
+
     # Вставка узлов в шаблон конфигурации
     for outbound in config_data.get("outbounds", []):
         if outbound.get("tag") == "Proxy":
-            # Сохраняем базовые ["YouTube-Fast", "DIRECT"] и добавляем узлы
+            # Сохраняем базовые узлы и добавляем все остальные
             outbound["outbounds"].extend(node_tags)
         elif outbound.get("tag") == "YouTube-Fast":
             outbound["outbounds"] = youtube_tags[:50]
+        elif outbound.get("tag") == "Gemini-Fast":
+            outbound["outbounds"] = gemini_tags[:50]
 
     config_data["outbounds"].extend(nodes)
     
