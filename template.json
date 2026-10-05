@@ -23,17 +23,13 @@
         "tag": "dns-fake",
         "type": "fakeip",
         "inet4_range": "198.18.0.0/15"
-      },
-      {
-        "tag": "dns-block",
-        "type": "rcode",
-        "rcode": "success"
       }
     ],
     "rules": [
       {
         "query_type": ["HTTPS", "SVCB"],
-        "server": "dns-block"
+        "action": "rcode",
+        "rcode": "success"
       },
       {
         "query_type": [
