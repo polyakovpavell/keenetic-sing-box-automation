@@ -46,6 +46,7 @@
           "geosite-twitter",
           "geosite-openai",
           "geosite-notion",
+          "geosite-anthropic",
           "geosite-ru-blocked"
         ],
         "server": "dns-fake"
@@ -153,6 +154,13 @@
         "download_detour": "DIRECT"
       },
       {
+        "tag": "geosite-anthropic",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-anthropic.srs",
+        "download_detour": "DIRECT"
+      },
+      {
         "tag": "geosite-notion",
         "type": "remote",
         "format": "binary",
@@ -188,6 +196,7 @@
           "geosite-twitter",
           "geosite-openai",
           "geosite-notion",
+          "geosite-anthropic",
           "geosite-ru-blocked"
         ],
         "outbound": "Proxy"
