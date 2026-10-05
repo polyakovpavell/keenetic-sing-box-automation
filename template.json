@@ -177,7 +177,7 @@
       {
         "network": "udp",
         "port": 443,
-        "rule_set": ["geosite-youtube", "geosite-meta"],
+        "rule_set": ["geosite-youtube", "geosite-meta", "geosite-notion"],
         "outbound": "block"
       },
       {
