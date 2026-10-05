@@ -23,9 +23,18 @@
         "tag": "dns-fake",
         "type": "fakeip",
         "inet4_range": "198.18.0.0/15"
+      },
+      {
+        "tag": "dns-block",
+        "type": "rcode",
+        "rcode": "success"
       }
     ],
     "rules": [
+      {
+        "query_type": ["HTTPS", "SVCB"],
+        "server": "dns-block"
+      },
       {
         "query_type": [
           "A",
@@ -110,6 +119,7 @@
   ],
 
   "route": {
+    "sniff_override_destination": true,
     "rule_set": [
       {
         "tag": "geosite-ru",
