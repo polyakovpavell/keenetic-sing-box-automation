@@ -45,6 +45,7 @@
           "geosite-telegram",
           "geosite-twitter",
           "geosite-openai",
+          "geosite-notion",
           "geosite-ru-blocked"
         ],
         "server": "dns-fake"
@@ -152,6 +153,13 @@
         "download_detour": "DIRECT"
       },
       {
+        "tag": "geosite-notion",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-notion.srs",
+        "download_detour": "DIRECT"
+      },
+      {
         "tag": "geosite-ru-blocked",
         "type": "remote",
         "format": "binary",
@@ -179,6 +187,7 @@
           "geosite-telegram",
           "geosite-twitter",
           "geosite-openai",
+          "geosite-notion",
           "geosite-ru-blocked"
         ],
         "outbound": "Proxy"
