@@ -42,6 +42,16 @@ def fetch_subscription(url, user_agent, timeout):
         sys.exit(1)
 
 def main():
+    # Быстрая проверка живости туннеля (Failover)
+    if '--check' in sys.argv:
+        try:
+            req = urllib.request.Request("https://www.youtube.com/generate_204", headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=5):
+                print("[INFO] Туннель исправен. Перезапуск не требуется.")
+                sys.exit(0)
+        except Exception as e:
+            print(f"[WARN] Туннель не отвечает ({e})! Запуск аварийного восстановления...")
+
     settings = load_settings()
     sub_url = settings.get('subscription', 'url')
     timeout = settings.getint('subscription', 'timeout', fallback=25)
