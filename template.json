@@ -84,9 +84,11 @@
       "type": "urltest",
       "tag": "YouTube-Fast",
       "outbounds": [],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "2m",
-      "tolerance": 20
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "1m",
+      "tolerance": 50,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": true
     },
     {
       "type": "direct",
