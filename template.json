@@ -185,7 +185,12 @@
       {
         "network": "udp",
         "port": 443,
-        "rule_set": ["geosite-youtube", "geosite-meta", "geosite-notion"],
+        "rule_set": [
+          "geosite-youtube", 
+          "geosite-meta", 
+          "geosite-notion",
+          "geosite-anthropic"
+        ],
         "outbound": "block"
       },
       {
