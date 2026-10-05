@@ -50,6 +50,13 @@
           "geosite-ru-blocked"
         ],
         "server": "dns-fake"
+      },
+      {
+        "domain_suffix": [
+          "statsig.com",
+          "statsigapi.net"
+        ],
+        "server": "dns-fake"
       }
     ],
     "final": "dns-direct",
@@ -203,6 +210,13 @@
           "geosite-notion",
           "geosite-anthropic",
           "geosite-ru-blocked"
+        ],
+        "outbound": "Proxy"
+      },
+      {
+        "domain_suffix": [
+          "statsig.com",
+          "statsigapi.net"
         ],
         "outbound": "Proxy"
       },
