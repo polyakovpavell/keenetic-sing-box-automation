@@ -74,7 +74,7 @@ def main():
     # Фильтрация узлов для YouTube: выбираем любые протоколы, содержащие ⚡
     youtube_tags = [n["tag"] for n in nodes if "⚡" in n["tag"]]
     if not youtube_tags:
-        youtube_tags = node_tags[:15] # Резерв, если нет нод с молнией
+        youtube_tags = node_tags[:50] # Резерв, если нет нод с молнией
 
     # Вставка узлов в шаблон конфигурации
     for outbound in config_data.get("outbounds", []):
@@ -82,7 +82,7 @@ def main():
             # Сохраняем базовые ["YouTube-Fast", "DIRECT"] и добавляем узлы
             outbound["outbounds"].extend(node_tags)
         elif outbound.get("tag") == "YouTube-Fast":
-            outbound["outbounds"] = youtube_tags[:15]
+            outbound["outbounds"] = youtube_tags[:50]
 
     config_data["outbounds"].extend(nodes)
     
