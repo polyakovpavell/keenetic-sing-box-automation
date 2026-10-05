@@ -44,7 +44,8 @@
           "geosite-meta",
           "geosite-telegram",
           "geosite-twitter",
-          "geosite-openai"
+          "geosite-openai",
+          "geosite-ru-blocked"
         ],
         "server": "dns-fake"
       }
@@ -147,6 +148,13 @@
         "format": "binary",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-openai.srs",
         "download_detour": "DIRECT"
+      },
+      {
+        "tag": "geosite-ru-blocked",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/runetfreedom/russia-v2ray-rules-dat@release/sing-box/rule-set-geosite/geosite-ru-blocked.srs",
+        "download_detour": "DIRECT"
       }
     ],
     "default_domain_resolver": "dns-direct",
@@ -168,7 +176,8 @@
           "geosite-meta",
           "geosite-telegram",
           "geosite-twitter",
-          "geosite-openai"
+          "geosite-openai",
+          "geosite-ru-blocked"
         ],
         "outbound": "Proxy"
       },
