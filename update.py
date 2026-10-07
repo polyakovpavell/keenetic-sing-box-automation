@@ -82,9 +82,9 @@ def main():
     node_tags = [n["tag"] for n in nodes]
     
     # Фильтрация узлов для YouTube: выбираем любые протоколы, содержащие ⚡
-    youtube_tags = [n["tag"] for n in nodes if "⚡" in n["tag"]]
+    youtube_tags = [n["tag"] for n in nodes if "⚡" in n["tag"] and "🇷🇺" not in n["tag"] and "Россия" not in n["tag"]]
     if not youtube_tags:
-        youtube_tags = node_tags[:50] # Резерв, если нет нод с молнией
+        youtube_tags = [n["tag"] for n in node_tags if "🇷🇺" not in n["tag"] and "Россия" not in n["tag"]][:50]# Резерв, если нет нод с молнией
 
     # Фильтрация узлов для Gemini: выбираем ноды со ⭐️ (чистые / Residential IP) без РФ
     gemini_tags = [n["tag"] for n in nodes if ("⭐" in n["tag"] or "⭐️" in n["tag"]) and "🇷🇺" not in n["tag"] and "Россия" not in n["tag"]]
