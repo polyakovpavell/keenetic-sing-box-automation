@@ -15,6 +15,24 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join(BASE_DIR, 'config.ini')
 TEMPLATE_FILE = os.path.join(BASE_DIR, 'template.json')
 
+def get_subscription_url():
+    env_path = os.path.join(BASE_DIR, '.env')
+    if not os.path.exists(env_path):
+        print(f"[ERROR] Файл окружения {env_path} не найден.")
+        sys.exit(1)
+        
+    with open(env_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith('URL='):
+                return line.split('=', 1)[1].strip(" '\"")
+                
+    print("[ERROR] В файле .env не найдена строка URL=...")
+    sys.exit(1)
+
+def load_settings():
+    config = configparser.ConfigParser()
+
 def load_settings():
     config = configparser.ConfigParser()
     if not os.path.exists(CONFIG_FILE):
@@ -53,7 +71,7 @@ def main():
             print(f"[WARN] Туннель не отвечает ({e})! Запуск аварийного восстановления...")
 
     settings = load_settings()
-    sub_url = settings.get('subscription', 'url')
+    sub_url = get_subscription_url()
     timeout = settings.getint('subscription', 'timeout', fallback=25)
     user_agent = settings.get('subscription', 'user_agent')
 
